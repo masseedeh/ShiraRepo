@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShiraModelStoreContainer" CdmEntityContainer="ShiraEntities">
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="ShiraModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="RegestrationNumber" ColumnName="RegestrationNumber" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="PoBox" ColumnName="PoBox" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompanySize">
+      <EntityTypeMapping TypeName="ShiraModel.CompanySize">
+        <MappingFragment StoreEntitySet="CompanySize">
+          <ScalarProperty Name="CompanySizeId" ColumnName="CompanySizeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndustryType">
+      <EntityTypeMapping TypeName="ShiraModel.IndustryType">
+        <MappingFragment StoreEntitySet="IndustryType">
+          <ScalarProperty Name="IndustryTypeId" ColumnName="IndustryTypeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LanguageDictionary">
+      <EntityTypeMapping TypeName="ShiraModel.LanguageDictionary">
+        <MappingFragment StoreEntitySet="LanguageDictionary">
+          <ScalarProperty Name="LanguageDictionaryId" ColumnName="LanguageDictionaryId" />
+          <ScalarProperty Name="KeyIndex" ColumnName="KeyIndex" />
+          <ScalarProperty Name="ArabicTranslation" ColumnName="ArabicTranslation" />
+          <ScalarProperty Name="EnglishTranslation" ColumnName="EnglishTranslation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineOfDefence">
+      <EntityTypeMapping TypeName="ShiraModel.LineOfDefence">
+        <MappingFragment StoreEntitySet="LineOfDefence">
+          <ScalarProperty Name="LineOfDefenceId" ColumnName="LineOfDefenceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="ShiraModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoldId" ColumnName="RoldId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="ShiraModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FK_Company_CompanySize" TypeName="ShiraModel.FK_Company_CompanySize" StoreEntitySet="Company">
+      <EndProperty Name="CompanySize">
+        <ScalarProperty Name="CompanySizeId" ColumnName="CompanySizeId" />
+      </EndProperty>
+      <EndProperty Name="Company">
+        <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Company_IndustryType" TypeName="ShiraModel.FK_Company_IndustryType" StoreEntitySet="Company">
+      <EndProperty Name="IndustryType">
+        <ScalarProperty Name="IndustryTypeId" ColumnName="IndustryTypeId" />
+      </EndProperty>
+      <EndProperty Name="Company">
+        <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_Company_LineOfDefence" TypeName="ShiraModel.FK_Company_LineOfDefence" StoreEntitySet="Company">
+      <EndProperty Name="LineOfDefence">
+        <ScalarProperty Name="LineOfDefenceId" ColumnName="LineOfDefenceId" />
+      </EndProperty>
+      <EndProperty Name="Company">
+        <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_User_Role" TypeName="ShiraModel.FK_User_Role" StoreEntitySet="User">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="RoldId" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

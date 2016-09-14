@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a1a14a0c4c1498c88eb5c02f9525382" Name="Diagram1">
+        <EntityTypeShape EntityType="ShiraModel.Company" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShiraModel.CompanySize" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShiraModel.IndustryType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShiraModel.LanguageDictionary" Width="1.5" PointX="5.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShiraModel.LineOfDefence" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShiraModel.Role" Width="1.5" PointX="5.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShiraModel.User" Width="1.5" PointX="8" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="ShiraModel.FK_Company_CompanySize" ManuallyRouted="false" />
+        <AssociationConnector Association="ShiraModel.FK_Company_IndustryType" ManuallyRouted="false" />
+        <AssociationConnector Association="ShiraModel.FK_Company_LineOfDefence" ManuallyRouted="false" />
+        <AssociationConnector Association="ShiraModel.FK_User_Role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShiraModel.Department" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="ShiraModel.FK_Department_Company" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

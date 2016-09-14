@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShiraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="RegestrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompanySizeId" Type="int" Nullable="false" />
+    <Property Name="LineOfDefenceId" Type="int" Nullable="false" />
+    <Property Name="IndustryTypeId" Type="int" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PoBox" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Logo" Type="nvarchar" MaxLength="255" />
+    <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="120" />
+    <Property Name="ModifiedBy" Type="int" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CompanySize">
+    <Key>
+      <PropertyRef Name="CompanySizeId" />
+    </Key>
+    <Property Name="CompanySizeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IndustryType">
+    <Key>
+      <PropertyRef Name="IndustryTypeId" />
+    </Key>
+    <Property Name="IndustryTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LanguageDictionary">
+    <Key>
+      <PropertyRef Name="LanguageDictionaryId" />
+    </Key>
+    <Property Name="LanguageDictionaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KeyIndex" Type="nvarchar" MaxLength="255" />
+    <Property Name="ArabicTranslation" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="EnglishTranslation" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineOfDefence">
+    <Key>
+      <PropertyRef Name="LineOfDefenceId" />
+    </Key>
+    <Property Name="LineOfDefenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoldId" />
+    </Key>
+    <Property Name="RoldId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="255" />
+    <Property Name="CellPhone" Type="nvarchar" MaxLength="255" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedOn" Type="datetime" />
+    <Property Name="ModifiedBy" Type="int" />
+  </EntityType>
+  <Association Name="FK_Company_CompanySize">
+    <End Role="CompanySize" Type="Self.CompanySize" Multiplicity="1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompanySize">
+        <PropertyRef Name="CompanySizeId" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="CompanySizeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_IndustryType">
+    <End Role="IndustryType" Type="Self.IndustryType" Multiplicity="1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndustryType">
+        <PropertyRef Name="IndustryTypeId" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="IndustryTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Company_LineOfDefence">
+    <End Role="LineOfDefence" Type="Self.LineOfDefence" Multiplicity="1" />
+    <End Role="Company" Type="Self.Company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LineOfDefence">
+        <PropertyRef Name="LineOfDefenceId" />
+      </Principal>
+      <Dependent Role="Company">
+        <PropertyRef Name="LineOfDefenceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoldId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShiraModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompanySize" EntityType="Self.CompanySize" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IndustryType" EntityType="Self.IndustryType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LanguageDictionary" EntityType="Self.LanguageDictionary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LineOfDefence" EntityType="Self.LineOfDefence" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Company_CompanySize" Association="Self.FK_Company_CompanySize">
+      <End Role="CompanySize" EntitySet="CompanySize" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_IndustryType" Association="Self.FK_Company_IndustryType">
+      <End Role="IndustryType" EntitySet="IndustryType" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Company_LineOfDefence" Association="Self.FK_Company_LineOfDefence">
+      <End Role="LineOfDefence" EntitySet="LineOfDefence" />
+      <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

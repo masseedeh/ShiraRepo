@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShiraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegestrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanySizeId" Type="int" Nullable="false" />
+          <Property Name="LineOfDefenceId" Type="int" Nullable="false" />
+          <Property Name="IndustryTypeId" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PoBox" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="120" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanySize">
+          <Key>
+            <PropertyRef Name="CompanySizeId" />
+          </Key>
+          <Property Name="CompanySizeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="ParentDepartmentId" Type="int" />
+        </EntityType>
+        <EntityType Name="IndustryType">
+          <Key>
+            <PropertyRef Name="IndustryTypeId" />
+          </Key>
+          <Property Name="IndustryTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LanguageDictionary">
+          <Key>
+            <PropertyRef Name="LanguageDictionaryId" />
+          </Key>
+          <Property Name="LanguageDictionaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KeyIndex" Type="nvarchar" MaxLength="255" />
+          <Property Name="ArabicTranslation" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EnglishTranslation" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LineOfDefence">
+          <Key>
+            <PropertyRef Name="LineOfDefenceId" />
+          </Key>
+          <Property Name="LineOfDefenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoldId" />
+          </Key>
+          <Property Name="RoldId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="255" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="255" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+        </EntityType>
+        <Association Name="FK_Company_CompanySize">
+          <End Role="CompanySize" Type="Self.CompanySize" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompanySize">
+              <PropertyRef Name="CompanySizeId" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CompanySizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_IndustryType">
+          <End Role="IndustryType" Type="Self.IndustryType" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryType">
+              <PropertyRef Name="IndustryTypeId" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="IndustryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_LineOfDefence">
+          <End Role="LineOfDefence" Type="Self.LineOfDefence" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LineOfDefence">
+              <PropertyRef Name="LineOfDefenceId" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="LineOfDefenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoldId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShiraModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanySize" EntityType="Self.CompanySize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndustryType" EntityType="Self.IndustryType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LanguageDictionary" EntityType="Self.LanguageDictionary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LineOfDefence" EntityType="Self.LineOfDefence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Company_CompanySize" Association="Self.FK_Company_CompanySize">
+            <End Role="CompanySize" EntitySet="CompanySize" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_IndustryType" Association="Self.FK_Company_IndustryType">
+            <End Role="IndustryType" EntitySet="IndustryType" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_LineOfDefence" Association="Self.FK_Company_LineOfDefence">
+            <End Role="LineOfDefence" EntitySet="LineOfDefence" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Company" Association="Self.FK_Department_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShiraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegestrationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PoBox" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Logo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CompanySize" Relationship="Self.FK_Company_CompanySize" FromRole="Company" ToRole="CompanySize" />
+          <NavigationProperty Name="IndustryType" Relationship="Self.FK_Company_IndustryType" FromRole="Company" ToRole="IndustryType" />
+          <NavigationProperty Name="LineOfDefence" Relationship="Self.FK_Company_LineOfDefence" FromRole="Company" ToRole="LineOfDefence" />
+          <NavigationProperty Name="Department" Relationship="ShiraModel.FK_Department_Company" FromRole="Company" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="CompanySize">
+          <Key>
+            <PropertyRef Name="CompanySizeId" />
+          </Key>
+          <Property Name="CompanySizeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_CompanySize" FromRole="CompanySize" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="IndustryType">
+          <Key>
+            <PropertyRef Name="IndustryTypeId" />
+          </Key>
+          <Property Name="IndustryTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_IndustryType" FromRole="IndustryType" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="LanguageDictionary">
+          <Key>
+            <PropertyRef Name="LanguageDictionaryId" />
+          </Key>
+          <Property Name="LanguageDictionaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KeyIndex" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ArabicTranslation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnglishTranslation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LineOfDefence">
+          <Key>
+            <PropertyRef Name="LineOfDefenceId" />
+          </Key>
+          <Property Name="LineOfDefenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Company_LineOfDefence" FromRole="LineOfDefence" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoldId" />
+          </Key>
+          <Property Name="RoldId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Company_CompanySize">
+          <End Role="CompanySize" Type="Self.CompanySize" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Company_IndustryType">
+          <End Role="IndustryType" Type="Self.IndustryType" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Company_LineOfDefence">
+          <End Role="LineOfDefence" Type="Self.LineOfDefence" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ShiraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="CompanySize" EntityType="Self.CompanySize" />
+          <EntitySet Name="IndustryType" EntityType="Self.IndustryType" />
+          <EntitySet Name="LanguageDictionary" EntityType="Self.LanguageDictionary" />
+          <EntitySet Name="LineOfDefence" EntityType="Self.LineOfDefence" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Company_CompanySize" Association="Self.FK_Company_CompanySize">
+            <End Role="CompanySize" EntitySet="CompanySize" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_IndustryType" Association="Self.FK_Company_IndustryType">
+            <End Role="IndustryType" EntitySet="IndustryType" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_LineOfDefence" Association="Self.FK_Company_LineOfDefence">
+            <End Role="LineOfDefence" EntitySet="LineOfDefence" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <EntitySet Name="Department" EntityType="ShiraModel.Department" />
+          <AssociationSet Name="FK_Department_Company" Association="ShiraModel.FK_Department_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="ShiraModel.FK_Department_Company" FromRole="Department" ToRole="Company" />
+          <Property Name="ParentDepartmentId" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Department_Company">
+          <End Type="ShiraModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="ShiraModel.Department" Role="Department" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShiraModelStoreContainer" CdmEntityContainer="ShiraEntities">
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="ShiraModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="RegestrationNumber" ColumnName="RegestrationNumber" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PoBox" ColumnName="PoBox" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanySize">
+            <EntityTypeMapping TypeName="ShiraModel.CompanySize">
+              <MappingFragment StoreEntitySet="CompanySize">
+                <ScalarProperty Name="CompanySizeId" ColumnName="CompanySizeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryType">
+            <EntityTypeMapping TypeName="ShiraModel.IndustryType">
+              <MappingFragment StoreEntitySet="IndustryType">
+                <ScalarProperty Name="IndustryTypeId" ColumnName="IndustryTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LanguageDictionary">
+            <EntityTypeMapping TypeName="ShiraModel.LanguageDictionary">
+              <MappingFragment StoreEntitySet="LanguageDictionary">
+                <ScalarProperty Name="LanguageDictionaryId" ColumnName="LanguageDictionaryId" />
+                <ScalarProperty Name="KeyIndex" ColumnName="KeyIndex" />
+                <ScalarProperty Name="ArabicTranslation" ColumnName="ArabicTranslation" />
+                <ScalarProperty Name="EnglishTranslation" ColumnName="EnglishTranslation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LineOfDefence">
+            <EntityTypeMapping TypeName="ShiraModel.LineOfDefence">
+              <MappingFragment StoreEntitySet="LineOfDefence">
+                <ScalarProperty Name="LineOfDefenceId" ColumnName="LineOfDefenceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="ShiraModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoldId" ColumnName="RoldId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="ShiraModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Company_CompanySize" TypeName="ShiraModel.FK_Company_CompanySize" StoreEntitySet="Company">
+            <EndProperty Name="CompanySize">
+              <ScalarProperty Name="CompanySizeId" ColumnName="CompanySizeId" />
+            </EndProperty>
+            <EndProperty Name="Company">
+              <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Company_IndustryType" TypeName="ShiraModel.FK_Company_IndustryType" StoreEntitySet="Company">
+            <EndProperty Name="IndustryType">
+              <ScalarProperty Name="IndustryTypeId" ColumnName="IndustryTypeId" />
+            </EndProperty>
+            <EndProperty Name="Company">
+              <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Company_LineOfDefence" TypeName="ShiraModel.FK_Company_LineOfDefence" StoreEntitySet="Company">
+            <EndProperty Name="LineOfDefence">
+              <ScalarProperty Name="LineOfDefenceId" ColumnName="LineOfDefenceId" />
+            </EndProperty>
+            <EndProperty Name="Company">
+              <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_User_Role" TypeName="ShiraModel.FK_User_Role" StoreEntitySet="User">
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoldId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="ShiraModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ParentDepartmentId" ColumnName="ParentDepartmentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Department_Company" TypeName="ShiraModel.FK_Department_Company" StoreEntitySet="Department">
+            <EndProperty Name="Department">
+              <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+            </EndProperty>
+            <EndProperty Name="Company">
+              <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
