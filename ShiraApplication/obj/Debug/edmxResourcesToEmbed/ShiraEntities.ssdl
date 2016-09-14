@@ -29,6 +29,15 @@
     <Property Name="CompanySizeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentId" />
+    </Key>
+    <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CompanyId" Type="int" />
+    <Property Name="ParentDepartmentId" Type="int" />
+  </EntityType>
   <EntityType Name="IndustryType">
     <Key>
       <PropertyRef Name="IndustryTypeId" />
@@ -114,6 +123,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Department_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -129,6 +150,7 @@
   <EntityContainer Name="ShiraModelStoreContainer">
     <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CompanySize" EntityType="Self.CompanySize" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IndustryType" EntityType="Self.IndustryType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LanguageDictionary" EntityType="Self.LanguageDictionary" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LineOfDefence" EntityType="Self.LineOfDefence" Schema="dbo" store:Type="Tables" />
@@ -145,6 +167,10 @@
     <AssociationSet Name="FK_Company_LineOfDefence" Association="Self.FK_Company_LineOfDefence">
       <End Role="LineOfDefence" EntitySet="LineOfDefence" />
       <End Role="Company" EntitySet="Company" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Department_Company" Association="Self.FK_Department_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Department" EntitySet="Department" />
     </AssociationSet>
     <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
       <End Role="Role" EntitySet="Role" />

@@ -21,6 +21,7 @@
     <NavigationProperty Name="CompanySize" Relationship="Self.FK_Company_CompanySize" FromRole="Company" ToRole="CompanySize" />
     <NavigationProperty Name="IndustryType" Relationship="Self.FK_Company_IndustryType" FromRole="Company" ToRole="IndustryType" />
     <NavigationProperty Name="LineOfDefence" Relationship="Self.FK_Company_LineOfDefence" FromRole="Company" ToRole="LineOfDefence" />
+    <NavigationProperty Name="Department" Relationship="ShiraModel.FK_Department_Company" FromRole="Company" ToRole="Department" />
   </EntityType>
   <EntityType Name="CompanySize">
     <Key>
@@ -122,5 +123,23 @@
       <End Role="Role" EntitySet="Role" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>
+    <EntitySet Name="Department" EntityType="ShiraModel.Department" />
+    <AssociationSet Name="FK_Department_Company" Association="ShiraModel.FK_Department_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentId" />
+    </Key>
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Company" Relationship="ShiraModel.FK_Department_Company" FromRole="Department" ToRole="Company" />
+    <Property Name="ParentDepartmentId" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_Department_Company">
+    <End Type="ShiraModel.Company" Role="Company" Multiplicity="1" />
+    <End Type="ShiraModel.Department" Role="Department" Multiplicity="*" />
+  </Association>
 </Schema>
