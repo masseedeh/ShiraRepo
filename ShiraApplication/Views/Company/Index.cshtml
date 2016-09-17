@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+ 
+<div style="margin:20px">    
+    <table id="companyGrid"></table>
+    <div id="companyGridPager"></div>
+</div>
+<link href="~/Content/ui.jqgrid.min.css" rel="stylesheet" />
+<link href="~/Content/themes/Orange/jquery-ui.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/free-jqGrid/jquery.jqgrid.min.js"></script>
+<script src="~/Scripts/free-jqGrid/i18n/grid.locale-en.js"></script>
+
+<script type="text/javascript">
+
+    function logoFormatter(cellvalue, options, rowObject) {
+        return "<img width='30px' src='Content/Images/" + cellvalue + "'/>";
+    }
+    function actionFormatter(cellvalue, options, rowObject) {
+        return "<a href='/exam/editQuestion.html?q_id=" + rowObject.id + "'><u>Edit</u></a>  " +
+  	       "<a href='/exam/deleteQuestion.html?q_id=" + rowObject.id + "'><u>Delete</u></a>";
+    }
+    function nameFormatter(cellvalue, options, rowObject) {
+        if(rowObject.ParentId==null)
+        {
+            return "<a style='text-decoration: none;' href='/exam/editQuestion.html?q_id=" + rowObject.id + "'><b>" + cellvalue + "</b></a>";
+        }
+        return "<a style='text-decoration: none;' href='/exam/editQuestion.html?q_id=" + rowObject.id + "'>" + cellvalue + "</a>";
+    }
+    $(document).ready(function () {
+
+        $("#companyGrid").jqGrid({
+        url: '/Company/GetCompanyGrid',
+        datatype: "json",
+        height: 250,
+        colNames: ['Id', 'ParentId', 'Name', 'Reg.No.', 'Industry', 'Size', 'Defence', 'Address', 'Phone', 'Logo', ''],
+        colModel: [
+            { name: 'id', index: 'id', width: 60, sorttype: "int", hidden:true },
+            { name: 'ParentId', index: 'ParentId', width: 60, sorttype: "int", hidden:true },
+            
+            { name: 'Name', index: 'Name', width: 120, sortable: false, formatter: nameFormatter },
+            { name: 'RegNo', index: 'RegNo', width: 50, sortable: false },
+            { name: 'Industry', index: 'Industry', width: 70, sortable: false },
+            { name: 'Size', index: 'Size', width: 80, sortable: false },
+            { name: 'LineOfDefence', index: 'LineOfDefence', width: 120, sortable: false },
+            { name: 'Address', index: 'Address', width: 150, sortable: false },
+            { name: 'Phone', index: 'Phone', width: 70, sortable: false },
+            { name: 'Logo', index: 'Logo', width: 40, sortable: false, formatter: logoFormatter, align: "center" },
+            { name: 'Action', index: 'Action', width: 70, sortable: false, formatter: actionFormatter, align: "center" }
+        ],
+        //multiselect: true,
+        caption: "Companies",
+        pager: jQuery('#companyGridPager')
+        });
+        $("#companyGrid").jqGrid('navGrid', '#companyGridPager',
+            { add: false, edit: false, del: false, search: false, refresh: false })
+        .navButtonAdd('#companyGridPager', {
+            caption: "Add",
+            buttonicon: "ui-icon-plus",
+            onClickButton: function () {
+                alert("Adding Row");
+            },
+            position: "last"
+        });
+
+
+    });
+</script>
+

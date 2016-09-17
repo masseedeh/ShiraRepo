@@ -6,19 +6,19 @@ using System.Web.Mvc;
 
 namespace ShiraApplication.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ShiraController
     {
         ShiraEntities db = new ShiraEntities();
         public ActionResult Index()
         {
-            //var x = db.LanguageDictionary.Count();
+            var x = db.Company.ToList();
+            //var user=GetLoggedInUser();            
             return View();
         }
 
         public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
+        {         
+            ViewBag.Message = " application description page.";
             return View();
         }
 
