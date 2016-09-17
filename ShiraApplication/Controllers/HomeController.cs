@@ -11,7 +11,7 @@ namespace ShiraApplication.Controllers
         ShiraEntities db = new ShiraEntities();
         public ActionResult Index()
         {
-            var x = db.LanguageDictionary.Count();
+            //var x = db.LanguageDictionary.Count();
             return View();
         }
 
